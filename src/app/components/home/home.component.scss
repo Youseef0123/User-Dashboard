@@ -1,0 +1,1042 @@
+// Custom loading overlay styles
+.custom-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 30, 30, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.custom-loading-text {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-top: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+// ===========================
+// HOME COMPONENT - USING NEW THEME SYSTEM
+// ===========================
+
+@import '../../shared/styles/index';
+@import "../../shared/styles/theme";
+
+.users-container {
+  @include component-base;
+  padding: 1.5rem;
+  background-color: var( --theme-bg-primary);
+  min-height: 100vh;
+  font-family: $font-family-base;
+}
+
+// Header Section
+.header-section {
+  margin-bottom: 2rem;
+
+  .header-info {
+    .page-title {
+      font-size: $font-size-xl * 1.6; // ~32px
+      font-weight: $font-weight-bold;
+      color: var(--theme-text-primary);
+      margin: 0 0 0.5rem 0;
+      line-height: $line-height-base;
+    }
+
+    .page-description {
+      font-size: $font-size-base;
+      color: var(--theme-text-primary);
+      margin: 0;
+      line-height: $line-height-base;
+      max-width: 600px;
+    }
+  }
+}
+
+.header-icon-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  white-space: nowrap;
+  font-weight: inherit;
+  font-size: inherit;
+
+  i, svg {
+    margin-left: 0.3em;
+    font-size: 1em;
+  }
+}
+
+// Controls Section
+.controls-section {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+  gap: 1.25rem;
+
+  @include respond-to('mobile') {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 400px;
+
+    @include respond-to('mobile') {
+      max-width: 100%;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      @include flex-center;
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        color: var(--theme-text-muted);
+        z-index: 1;
+        font-size: $font-size-sm;
+      }
+
+      .search-input {
+        @include theme-input;
+        padding-left: 3rem;
+        font-size: $font-size-sm;
+
+        &::placeholder {
+          color: var(--theme-text-muted);
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    @include flex-center;
+    gap: 0.75rem;
+
+    @include respond-to('mobile') {
+      justify-content: stretch;
+
+      .btn {
+        flex: 1;
+      }
+    }
+
+    .btn {
+      @include theme-button('secondary', 'medium');
+      @include flex-center;
+      gap: 0.5rem;
+      font-size: $font-size-sm;
+
+      svg, i {
+        color: var(--theme-text-secondary);
+        font-size: $font-size-sm;
+      }
+    }
+
+    .btn-add-user {
+      @include theme-button('primary', 'medium');
+
+      i {
+        color: var(--theme-text-inverse);
+        margin-right: 0.375rem;
+      }
+    }
+  }
+}
+
+// Table Container
+.table-container {
+  @include theme-card('medium');
+  padding: 0; // Remove default card padding for table
+  overflow: hidden;
+
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    // Table Header
+    thead {
+      background-color: var(--theme-bg-secondary);
+      border-bottom: 1px solid var(--theme-border-color);
+
+      th {
+        padding: 1rem 1.25rem;
+        text-align: left;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-bold;
+        color: var(--theme-text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        position: relative;
+
+        &:first-child {
+          width: 48px;
+          text-align: center;
+        }
+
+        .sort-icon {
+          margin-left: 0.25rem;
+          color: var(--theme-text-muted);
+          vertical-align: middle;
+          cursor: pointer;
+          transition: $transition-base;
+
+          &:hover {
+            color: var(--theme-accent-primary);
+          }
+        }
+      }
+    }
+
+    // Table Body
+    tbody {
+      .table-row {
+        border-bottom: 1px solid var(--theme-border-light);
+        transition: $transition-base;
+
+        &:hover {
+          background-color: var(--theme-surface-hover);
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 1rem 1.25rem;
+          vertical-align: middle;
+          color: var(--theme-text-primary);
+        }
+
+        // Checkbox Cell
+        .checkbox-cell {
+          text-align: center;
+          width: 48px;
+
+          .checkbox-input {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--theme-border-color);
+            border-radius: $border-radius-sm;
+            cursor: pointer;
+            accent-color: var(--theme-accent-primary);
+            transition: $transition-base;
+
+            &:checked {
+              background-color: var(--theme-accent-primary);
+              border-color: var(--theme-accent-primary);
+            }
+
+            &:focus {
+              @include focus-outline;
+            }
+          }
+        }
+
+        // User Info Cell
+        .name-cell {
+          .user-info {
+            @include flex-center;
+            gap: 0.75rem;
+            justify-content: flex-start;
+
+            .user-avatar {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 2px solid var(--theme-border-light);
+              transition: $transition-base;
+
+              &:hover {
+                border-color: var(--theme-accent-primary);
+              }
+            }
+
+            .user-details {
+              .user-name {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                color: var(--theme-text-primary);
+                margin-bottom: 0.125rem;
+                line-height: 1.3;
+              }
+
+              .user-email {
+                font-size: $font-size-sm * 0.9;
+                color: var(--theme-text-secondary);
+                line-height: 1.3;
+              }
+            }
+          }
+        }
+
+        // Role Cell
+        .role-cell {
+          .role-badge {
+            font-size: $font-size-sm * 0.9;
+            font-weight: $font-weight-medium;
+            color: var(--theme-text-secondary);
+            background-color: var(--theme-bg-accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: $border-radius;
+            display: inline-block;
+          }
+        }
+
+        // Date Cell
+        .date-cell {
+          .date-text {
+            font-size: $font-size-sm * 0.9;
+            color: var(--theme-text-secondary);
+          }
+        }
+
+        // Status Cell
+        .status-cell {
+          .status-badge {
+            &.status-active {
+              background-color: var( --theme-success);
+              padding: 3px 5px;
+              font-size: 12px;
+              border-radius: 15px;
+            }
+
+            &.status-suspended {
+              background-color:var( --theme-error);
+              padding: 3px 5px;
+              font-size: 12px;
+              border-radius: 15px;
+            }
+
+
+
+          }
+        }
+
+        // Groups Cell
+        .groups-cell {
+          .groups-text {
+            font-size: $font-size-sm * 0.9;
+            color: var(--theme-accent-primary);
+            font-weight: $font-weight-medium;
+
+            &.no-group {
+              color: var(--theme-text-muted);
+              font-style: italic;
+            }
+          }
+        }
+
+        // License Cell
+        .license-cell {
+          .license-text {
+            font-size: $font-size-sm * 0.9;
+            color: var(--theme-text-secondary);
+          }
+        }
+
+        // Actions Cell
+        .actions-cell {
+          text-align: center;
+
+          .action-btn {
+            @include theme-button('ghost', 'small');
+            width: 32px;
+            height: 32px;
+            padding: 0;
+
+            &:hover {
+              background-color: var(--theme-surface-hover);
+            }
+
+            svg, i {
+              color: var(--theme-text-muted);
+              font-size: $font-size-sm;
+              transition: $transition-base;
+            }
+
+            &:hover svg,
+            &:hover i {
+              color: var(--theme-text-primary);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Action Buttons in Table
+.action-buttons-container {
+  @include flex-center;
+  gap: 0.5rem;
+
+  .btn {
+    @include theme-button('ghost', 'small');
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    &.btn-edit {
+      &:hover {
+        background-color: var(--theme-info-bg);
+        color: var(--theme-info);
+        transform: scale(1.1);
+      }
+    }
+
+    &.btn-delete {
+      &:hover {
+        background-color: var(--theme-error-bg);
+        color: var(--theme-error);
+        transform: scale(1.1);
+      }
+    }
+
+    i {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+// Modal Styles
+::ng-deep .modal-content {
+  border-radius: $modal-border-radius;
+  border: none;
+  box-shadow: var(--theme-shadow-xl);
+  background-color: var(--theme-surface);
+}
+
+::ng-deep .modal-header {
+  background: var(--theme-surface);
+  border-bottom: 1px solid var(--theme-border-light);
+  border-radius: $modal-border-radius $modal-border-radius 0 0;
+  padding: $modal-padding * 0.8;
+
+  .modal-title {
+    color: var(--theme-text-primary);
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+  }
+
+ btn-close {
+    font-size: $font-size-xl;
+    color: var(--theme-text-primary); // استخدم متغير الثيم بدلاً من اللون الثابت
+    opacity: 0.7;
+    transition: $transition-base;
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+
+    &:hover {
+      opacity: 1;
+      color: var(--theme-text-primary);
+    }
+}
+}
+
+::ng-deep .modal-body {
+  padding: $modal-padding;
+  background: var(--theme-surface);
+  color: var(--theme-text-secondary);
+
+  .form-label {
+    color: var(--theme-text-secondary);
+    font-weight: $font-weight-medium;
+    margin-bottom: $form-label-margin / 2;
+  }
+
+  .form-control {
+    @include theme-input;
+    padding: $form-input-padding;
+    color: var(--theme-text-primary);
+    background: var(--theme-surface);
+  }
+}
+
+::ng-deep .modal-footer {
+  background: var(--theme-surface);
+  border-top: 1px solid var(--theme-border-light);
+  border-radius: 0 0 $modal-border-radius $modal-border-radius;
+  padding: $modal-padding * 0.67;
+
+  .btn {
+    @include component-base;
+    padding: $button-padding-md;
+    border-radius: $border-radius-lg;
+    font-weight: $font-weight-medium;
+    border: none;
+    cursor: pointer;
+
+    &.btn-secondary {
+      @include theme-button('secondary', 'medium');
+    }
+
+    &.btn-success {
+      @include theme-button('primary', 'medium');
+    }
+
+    &.btn-danger {
+      background: var(--theme-error);
+      color: var(--theme-text-inverse);
+
+
+    }
+  }
+}
+
+
+
+// Dark mood variables
+// ===========================
+// RESPONSIVE DESIGN
+// ===========================
+
+// Tablet and below (1024px)
+@media (max-width: 1024px) {
+  .users-container {
+    padding: 1rem;
+  }
+
+  .controls-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+
+    .search-container {
+      max-width: none;
+    }
+
+    .action-buttons {
+      justify-content: center;
+    }
+  }
+
+  .users-table {
+    font-size: $font-size-sm;
+
+    thead th {
+      padding: 0.75rem 1rem;
+    }
+
+    tbody td {
+      padding: 0.75rem 1rem;
+    }
+  }
+}
+
+// Mobile and below (768px)
+@media (max-width: 768px) {
+  .header-section {
+    margin-bottom: 1.5rem;
+
+    .header-info {
+      .page-title {
+        font-size: $font-size-xl * 1.2;
+      }
+
+      .page-description {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    .users-table {
+      min-width: 800px;
+    }
+  }
+
+  .users-table tbody .table-row .name-cell .user-info {
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+// Small Mobile (640px)
+@media (max-width: 640px) {
+  .users-container {
+    padding: 0.75rem;
+  }
+
+  .controls-section .action-buttons {
+    flex-direction: column;
+  }
+
+  .users-table {
+    thead th,
+    tbody td {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+}
+
+// ===========================
+// CUSTOM CHECKBOX STYLES
+// ===========================
+
+.custom-checkbox-icon {
+  cursor: pointer;
+  @include flex-center;
+
+  input[type="checkbox"] {
+    @include visually-hidden;
+  }
+
+  i {
+    font-size: $font-size-lg;
+    color: var(--theme-warning);
+    transition: $transition-base;
+  }
+
+  input[type="checkbox"]:checked + i {
+    color: var(--theme-error);
+    transform: scale(1.2);
+  }
+}
+
+// ===========================
+// LOADING STATES
+// ===========================
+
+.loading-container {
+  @include flex-center;
+  min-height: 200px;
+  color: var(--theme-text-muted);
+  font-size: $font-size-base;
+
+  .spinner {
+    margin-right: 0.5rem;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// ===========================
+// EMPTY STATE
+// ===========================
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--theme-text-muted);
+
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--theme-text-muted);
+  }
+
+  .empty-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    margin-bottom: 0.5rem;
+    color: var(--theme-text-secondary);
+  }
+
+  .empty-description {
+    font-size: $font-size-sm;
+    color: var(--theme-text-muted);
+  }
+}
+
+// ===========================
+// PAGINATION STYLES
+// ===========================
+
+.pagination-container {
+  @include flex-center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--theme-border-light);
+
+  .pagination-info {
+    font-size: $font-size-sm;
+    color: var(--theme-text-muted);
+  }
+
+  .pagination-controls {
+    @include flex-center;
+    gap: 0.5rem;
+
+    .page-btn {
+      @include theme-button('ghost', 'small');
+      min-width: 32px;
+      height: 32px;
+
+      &.active {
+        background-color: var(--theme-accent-primary);
+        color: var(--theme-text-inverse);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+
+
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #333);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  font-size: 14px;
+  min-width: 160px;
+
+  &:focus {
+    border-color: #4e73df;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.25);
+  }
+
+  &:hover {
+    border-color: #999;
+  }
+}
+
+.dark .custom-select {
+  background-color: #2e2e2e;
+  color: #f1f1f1;
+  border-color: #555;
+}
+
+
+
+// ===========================
+// FIX TABLE SCROLL ISSUE
+// ===========================
+
+.users-container {
+  @include component-base;
+  padding: 1.5rem;
+  background-color: var(--theme-bg-primary);
+  min-height: 100vh;
+  font-family: $font-family-base;
+
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+// Table Container
+.table-container {
+  @include theme-card('medium');
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  // منع overflow للكونتينر
+  max-width: 100%;
+
+  // إضافة scroll horizontal للجدول فقط
+  overflow-x: auto;
+  overflow-y: visible;
+
+  // تحسين scroll على الموبايل
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  // تخصيص scrollbar
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--theme-bg-secondary);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--theme-border-color);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--theme-text-muted);
+    }
+  }
+}
+
+// الجدول نفسه
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  @media (max-width: 768px) {
+    min-width: 800px;
+    width: 800px;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 750px;
+    width: 750px;
+  }
+}
+
+.header-section {
+  margin-bottom: 2rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+// Controls Section
+.controls-section {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+  gap: 1.25rem;
+  max-width: 100%;
+  overflow: hidden;
+
+  @include respond-to('mobile') {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 400px;
+    min-width: 0; // مهم لمنع overflow
+
+    @include respond-to('mobile') {
+      max-width: none;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .action-buttons {
+    @include flex-center;
+    gap: 0.75rem;
+    flex-shrink: 0; // منع تصغير الأزرار
+
+    @include respond-to('mobile') {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .users-container {
+    padding: 1rem;
+    overflow-x: hidden;
+  }
+
+  .table-container {
+    margin: 0 -1rem;
+    border-radius: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 1rem;
+      height: 1px;
+      float: left;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      width: 1rem;
+      height: 1px;
+      float: right;
+      clear: both;
+    }
+  }
+
+  // تحسين النصوص في الموبايل
+  .users-table {
+    font-size: 0.875rem;
+
+    th, td {
+      padding: 0.75rem 0.5rem;
+      white-space: nowrap; // منع تكسير النص
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+    }
+
+    .user-name {
+      font-size: 0.875rem;
+    }
+
+    .user-email {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .users-container {
+    padding: 0.75rem;
+  }
+
+  .table-container {
+    margin: 0 -0.75rem;
+  }
+
+  .users-table {
+    font-size: 0.8125rem;
+
+    th, td {
+      padding: 0.5rem 0.375rem;
+    }
+  }
+}
+
+.table-container {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(to left, var(--theme-surface) 0%, transparent 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    @media (max-width: 768px) {
+      opacity: 1;
+    }
+  }
+
+  &.scrolled-to-end::after {
+    opacity: 0;
+  }
+}
+
+// ===========================
+// FORM VALIDATION STYLES
+// ===========================
+
+// Enhanced validation styles for forms
+.form-control {
+  &.ng-invalid.ng-touched {
+    border-color: var(--theme-error);
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+
+    &:focus {
+      border-color: var(--theme-error);
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+
+
+}
+
+// Validation error messages
+.text-danger {
+  color: var(--theme-error) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+
+  small {
+    display: block;
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      content: "⚠ ";
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+// Form labels
+.form-label {
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+
+  &::after {
+    content: " *";
+    color: var(--theme-error);
+    font-weight: bold;
+  }
+}
+
+// Modal form specific styles
+::ng-deep .modal-body {
+  .form-control {
+    transition: all 0.3s ease;
+
+    &:focus {
+      transform: translateY(-1px);
+    }
+  }
+
+  // Email field with special styling for uniqueness error
+  input[formControlName="email"] {
+    &.ng-invalid.ng-touched {
+      animation: shake 0.5s ease-in-out;
+    }
+  }
+}
+
+// Shake animation for email error
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+// Button disabled state
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  transform: none !important;
+
+  &:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}

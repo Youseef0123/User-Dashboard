@@ -1,0 +1,190 @@
+.otp-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var( --theme-bg-primary);
+}
+
+.otp-card {
+  background: var(--card-background);
+  border-radius: 16px;
+  padding: 60px 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 8px 25px rgba(235, 115, 122, 0.1);
+  text-align: center;
+}
+
+// Header Styles
+.otp-header {
+  margin-bottom: 50px;
+
+  .otp-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var( --theme-text-primary);
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+
+  .otp-subtitle {
+    color: var( --theme-text-secondary);
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+}
+
+// OTP Form Styles
+.otp-form {
+  margin-bottom: 40px;
+
+  .otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    .otp-input {
+      width: 45px;
+      height: 55px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-color);
+      background: var(-theme-accent-secondary);
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--focus-shadow);
+      }
+
+      &:hover {
+        border-color: var(--border-color-hover);
+      }
+    }
+  }
+}
+
+// Actions Styles
+.otp-actions {
+  .btn-verify {
+    width: 100%;
+    background: linear-gradient(135deg, var( --theme-border-focus) 0%, var(--primary-hover) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    background-color: var( --theme-border-focus);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    // &:hover:not(:disabled) {
+    //   background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-active) 100%);
+    //   transform: translateY(-1px);
+    //   box-shadow: 0 4px 12px var(--button-shadow);
+    //   background-color: var( --theme-text-primary);
+    // }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled,
+    &.disabled {
+      background: var(--theme-error-borde) ;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+      background-color: var(--theme-text-disabled)!important;
+
+
+    }
+
+    &.loading {
+      pointer-events: none;
+
+      i.fa-spin {
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    i {
+      font-size: 14px;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 640px) {
+  .otp-container {
+    padding: 16px;
+  }
+
+  .otp-card {
+    padding: 40px 24px;
+    border-radius: 12px;
+  }
+
+  .otp-header {
+    margin-bottom: 40px;
+
+    .otp-title {
+      font-size: 24px;
+    }
+
+    .otp-subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .otp-form {
+    margin-bottom: 32px;
+
+    .otp-inputs {
+      gap: 12px;
+
+      .otp-input {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .otp-form {
+    .otp-inputs {
+      gap: 6px;
+
+      .otp-input {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Loading spinner animation
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,448 @@
+// Import shared styles and variables
+@import '../../shared/styles/index';
+
+// Pagination Component Styles - Using Site Color Variables
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: var(--bg-color);
+  border-top: 1px solid rgba($Text_Color, 0.1);
+  border-radius: 0 0 $border-radius-xl $border-radius-xl;
+  font-family: $font-family-base;
+
+  // Pagination Info Section
+  .pagination-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    .showing-info {
+      .showing-text {
+        font-size: $font-size-sm;
+        color: var(--text-color);
+        font-weight: $font-weight-medium;
+
+        strong {
+          color: $Black_Color;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+
+    .items-per-page {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .items-label {
+        font-size: $font-size-sm;
+        color:var(--text-color);
+        font-weight: $font-weight-medium;
+        white-space: nowrap;
+      }
+
+      .items-select {
+        padding: 8px 12px;
+        border: $border-width solid rgba($Text_Color, 0.2);
+        border-radius: $border-radius;
+        background: $Main_Color_White;
+        color: $Black_Color;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        cursor: pointer;
+        transition: $transition-base;
+        min-width: 70px;
+        outline: none;
+
+        &:focus {
+          border-color: $Secound_Color_Red;
+          box-shadow: 0 0 0 3px rgba($Secound_Color_Red, 0.1);
+        }
+
+        &:hover {
+          border-color: rgba($Text_Color, 0.4);
+          background: rgba($Secound_Red, 0.3);
+        }
+
+        option {
+          padding: 8px;
+          background: $Main_Color_White;
+          color: $Black_Color;
+        }
+      }
+    }
+  }
+
+  // Pagination Controls Section
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+
+    .pagination-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// Custom Pagination Styles (Override ngx-pagination)
+::ng-deep .custom-pagination {
+  .ngx-pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      &.current {
+        a {
+          background: linear-gradient(135deg, $Secound_Color_Red, darken($Secound_Color_Red, 10%)) !important;
+          color: var(--text-color) !important;
+          border-color: $Secound_Color_Red !important;
+          font-weight: $font-weight-bold;
+          box-shadow: 0 4px 12px rgba($Secound_Color_Red, 0.4);
+          transform: translateY(-1px) scale(1.05);
+          z-index: 2;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, $Secound_Color_Red, darken($Secound_Color_Red, 10%));
+            border-radius: 10px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+          }
+
+          &:hover {
+            background: linear-gradient(135deg, darken($Secound_Color_Red, 10%), darken($Secound_Color_Red, 15%)) !important;
+            transform: translateY(-2px) scale(1.05);
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        padding: 0 12px;
+        border: $border-width solid rgba($Text_Color, 0.2);
+        border-radius: $border-radius;
+        background: $Main_Color_White;
+        color: $Text_Color;
+        text-decoration: none;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        transition: $transition-base;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba($Secound_Color_Red, 0.1), transparent);
+          transition: left 0.5s ease;
+        }
+
+        &:hover {
+          background: rgba($Secound_Red, 0.5);
+          border-color: $Secound_Color_Red;
+          color: $Secound_Color_Red;
+          transform: translateY(-2px);
+          box-shadow: $box-shadow;
+
+          &::before {
+            left: 100%;
+          }
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $Secound_Color_Red;
+          box-shadow: 0 0 0 3px rgba($Secound_Color_Red, 0.15);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+
+      &.disabled {
+        a {
+          color: rgba($Text_Color, 0.4) !important;
+          cursor: not-allowed;
+          background: rgba($Secound_Red, 0.3) !important;
+          border-color: rgba($Text_Color, 0.1) !important;
+          transform: none !important;
+          box-shadow: none !important;
+
+          &:hover {
+            background: rgba($Secound_Red, 0.3) !important;
+            border-color: rgba($Text_Color, 0.1) !important;
+            color: rgba($Text_Color, 0.4) !important;
+            transform: none !important;
+            box-shadow: none !important;
+
+            &::before {
+              left: -100% !important;
+            }
+          }
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+
+      // Previous/Next buttons styling
+      &.pagination-previous,
+      &.pagination-next {
+        a {
+          padding: 0 16px;
+          font-weight: $font-weight-bold;
+
+          &::before,
+          &::after {
+            display: none;
+          }
+
+          &:hover {
+            background: $Secound_Color_Red;
+            color: $Main_Color_White;
+            border-color: $Secound_Color_Red;
+          }
+        }
+      }
+
+      // Hide first/last buttons for cleaner look
+      &:first-child,
+      &:last-child {
+        display: none;
+      }
+
+      // Ellipsis styling
+      &.pagination-ellipsis {
+        a {
+          border: none;
+          background: transparent;
+          cursor: default;
+          color: rgba($Text_Color, 0.6);
+
+          &:hover {
+            background: transparent;
+            border: none;
+            color: rgba($Text_Color, 0.6);
+            transform: none;
+            box-shadow: none;
+          }
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animation for current page indicator
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+// Dark mood variables
+
+.users-container {
+  &.light {
+    --bg-color: #faf7fa;
+    --text-color: #1C0D0F;
+    --card-color: #ffffff;
+    --border-color: #e5e7eb;
+    --hover-color: #f9fafb;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --role-color:#374151;
+  }
+
+  &.dark {
+    --bg-color: #1C0D0F;
+    --text-color: #ffffff;
+    --card-color: #2e2e2e;
+    --border-color: #4a4a4a;
+    --hover-color: #3a3a3a;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --text-color: #e5e7eb;
+     --role-color:#616a78;
+  }
+}
+
+
+
+
+
+// Responsive Design
+@media (max-width: map-get($grid-breakpoints, md)) {
+  .pagination-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 16px;
+
+    .pagination-info {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+
+      .showing-info .showing-text {
+        font-size: $font-size-sm - 1px;
+      }
+
+      .items-per-page {
+        .items-label {
+          font-size: $font-size-sm - 1px;
+        }
+
+        .items-select {
+          font-size: $font-size-sm - 1px;
+          padding: 6px 10px;
+        }
+      }
+    }
+
+    .pagination-controls {
+      width: 100%;
+      justify-content: center;
+
+      ::ng-deep .custom-pagination .ngx-pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+
+        li a {
+          min-width: 36px;
+          height: 36px;
+          font-size: $font-size-sm - 1px;
+          padding: 0 10px;
+        }
+
+        li.pagination-previous,
+        li.pagination-next {
+          a {
+            padding: 0 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, sm)) {
+  .pagination-container {
+    padding: 16px 12px;
+    gap: 16px;
+
+    .pagination-info {
+      gap: 12px;
+
+      .showing-info .showing-text,
+      .items-per-page .items-label {
+        font-size: $font-size-sm - 2px;
+      }
+
+      .items-per-page {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+
+        .items-select {
+          font-size: $font-size-sm - 2px;
+          padding: 5px 8px;
+          min-width: 60px;
+        }
+
+        @media (min-width: 480px) {
+          flex-direction: row;
+          gap: 8px;
+        }
+      }
+    }
+
+    ::ng-deep .custom-pagination .ngx-pagination {
+      gap: 2px;
+
+      li a {
+        min-width: 32px;
+        height: 32px;
+        font-size: $font-size-sm - 2px;
+        padding: 0 8px;
+      }
+
+      li.pagination-previous,
+      li.pagination-next {
+        a {
+          padding: 0 10px;
+          font-size: $font-size-sm - 3px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination-container {
+    .pagination-info {
+      .items-per-page {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+      }
+    }
+
+    ::ng-deep .custom-pagination .ngx-pagination {
+      li a {
+        min-width: 30px;
+        height: 30px;
+        font-size: $font-size-sm - 3px;
+        padding: 0 6px;
+      }
+
+      li.pagination-previous,
+      li.pagination-next {
+        a {
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+}
+
+

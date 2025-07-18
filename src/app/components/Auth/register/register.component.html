@@ -1,0 +1,280 @@
+<div class="register-container">
+  <div class="register-card">
+    <!-- Header -->
+    <div class="register-header">
+      <h1 class="register-title">Create New Account</h1>
+      <p class="register-subtitle">
+        Welcome! Create your account to get started
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onsubmit()"
+      class="register-form"
+    >
+      <!-- Name Fields Row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName" class="form-label">
+            <i class="fas fa-user icon-label"></i>
+            First Name *
+          </label>
+          <div
+            class="input-wrapper"
+            [class.valid]="isFieldValid('first_name')"
+            [class.invalid]="isFieldInvalid('first_name')"
+          >
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('first_name')"
+              [class.is-valid]="isFieldValid('first_name')"
+              formControlName="first_name"
+              placeholder="Enter first name (e.g., John)"
+              (input)="validateNameInput('first_name', $event)"
+              (keydown)="preventSpaceInput($event)"
+              (blur)="capitalizeFirstLetter('first_name')"
+              maxlength="20"
+            />
+          </div>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('first_name')">
+            <span *ngIf="!isFieldValid('first_name')"
+              >Please enter a valid first name.</span
+            >
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName" class="form-label">
+            <i class="fas fa-user icon-label"></i>
+            Last Name *
+          </label>
+          <div
+            class="input-wrapper"
+            [class.valid]="isFieldValid('last_name')"
+            [class.invalid]="isFieldInvalid('last_name')"
+          >
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('last_name')"
+              [class.is-valid]="isFieldValid('last_name')"
+              formControlName="last_name"
+              placeholder="Enter last name (e.g., Smith)"
+              (input)="validateNameInput('last_name', $event)"
+              (keydown)="preventSpaceInput($event)"
+              (blur)="capitalizeFirstLetter('last_name')"
+              maxlength="20"
+            />
+          </div>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('last_name')">
+            <span *ngIf="!isFieldValid('last_name')"
+              >Please enter a valid last name.</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label"> Email Address * </label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('email')"
+            formControlName="email"
+            placeholder="example@domain.com"
+          />
+        </div>
+
+        <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+          <span *ngIf="!isFieldValid('email')"
+            >Please enter a valid email.</span
+          >
+          <span *ngIf="registerForm.get('email')?.hasError('required')">
+            Email is required.
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group country-group">
+          <label for="country" class="form-label"> Country * </label>
+          <div class="input-wrapper">
+            <select
+              id="country"
+              class="form-control country-select"
+              [class.is-invalid]="isFieldInvalid('country_id')"
+              formControlName="country_id"
+            >
+              <option value="" disabled>Select Country</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.name_en || "---" }}
+              </option>
+            </select>
+          </div>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('country_id')">
+            <span *ngIf="!isFieldValid('country_id')"
+              >Please select a valid country.</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="fas fa-lock icon-label"></i>
+          Password *
+        </label>
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('password')"
+            [class.is-valid]="
+              passwordControl.valid && isPasswordTouchedOrDirty()
+            "
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+
+        <!-- Real-time Password Requirements -->
+        <div class="password-requirements" *ngIf="isPasswordTouchedOrDirty()">
+          <div class="requirements-title">
+            <i class="fas fa-info-circle"></i>
+            Password Requirements:
+          </div>
+
+          <div class="requirements-list">
+            <div
+              class="requirement"
+              [class.valid]="
+                getPasswordRequirements().hasMinLength &&
+                getPasswordRequirements().hasMaxLength
+              "
+            >
+              <i
+                class="fas"
+                [class.fa-check]="
+                  getPasswordRequirements().hasMinLength &&
+                  getPasswordRequirements().hasMaxLength
+                "
+                [class.fa-times]="
+                  !(
+                    getPasswordRequirements().hasMinLength &&
+                    getPasswordRequirements().hasMaxLength
+                  )
+                "
+              ></i>
+              8-20 characters
+            </div>
+            <div
+              class="requirement"
+              [class.valid]="getPasswordRequirements().hasUpperCase"
+            >
+              <i
+                class="fas"
+                [class.fa-check]="getPasswordRequirements().hasUpperCase"
+                [class.fa-times]="!getPasswordRequirements().hasUpperCase"
+              ></i>
+              At least one uppercase letter (A-Z)
+            </div>
+            <div
+              class="requirement"
+              [class.valid]="getPasswordRequirements().hasLowerCase"
+            >
+              <i
+                class="fas"
+                [class.fa-check]="getPasswordRequirements().hasLowerCase"
+                [class.fa-times]="!getPasswordRequirements().hasLowerCase"
+              ></i>
+              At least one lowercase letter (a-z)
+            </div>
+            <div
+              class="requirement"
+              [class.valid]="getPasswordRequirements().hasNumber"
+            >
+              <i
+                class="fas"
+                [class.fa-check]="getPasswordRequirements().hasNumber"
+                [class.fa-times]="!getPasswordRequirements().hasNumber"
+              ></i>
+              At least one number (0-9)
+            </div>
+            <div
+              class="requirement"
+              [class.valid]="getPasswordRequirements().hasSpecialChar"
+            >
+              <i
+                class="fas"
+                [class.fa-check]="getPasswordRequirements().hasSpecialChar"
+                [class.fa-times]="!getPasswordRequirements().hasSpecialChar"
+              ></i>
+              At least one special character (!&#64;#$%^&*)
+            </div>
+            <div
+              class="requirement"
+              [class.valid]="getPasswordRequirements().hasNoSpaces"
+            >
+              <i
+                class="fas"
+                [class.fa-check]="getPasswordRequirements().hasNoSpaces"
+                [class.fa-times]="!getPasswordRequirements().hasNoSpaces"
+              ></i>
+              No spaces allowed
+            </div>
+          </div>
+        </div>
+
+        <!-- Error message for invalid password -->
+        <div class="invalid-feedback" *ngIf="isFieldInvalid('password')">
+          Password does not meet the requirements above
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn-register"
+        [disabled]="registerForm.invalid"
+      >
+        <ng-container
+          *ngIf="_authFacadService.registerLoading | async; else showRegister"
+        >
+          <i
+            *ngIf="_authFacadService.registerLoading | async"
+            class="fa-solid fa-spinner fa-spin"
+          ></i>
+          Registering...
+        </ng-container>
+        <ng-template #showRegister> Register </ng-template>
+      </button>
+
+      <!-- Login Link -->
+      <div class="login-link">
+        <span>Already have an account?</span>
+        <a routerLink="/login" class="login-link-text">
+          <i class="fas fa-sign-in-alt"></i>
+          Sign In
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<!-- Pagination Container -->
+<div class="pagination-container" *ngIf="totalItems > 0">
+
+  <!-- Pagination Info Section -->
+  <div class="pagination-info">
+    <div class="showing-info">
+      <span class="showing-text">
+        Showing <strong>{{ getStartIndex() }}</strong> to <strong>{{ getEndIndex() }}</strong>
+        of <strong>{{ totalItems }}</strong> results
+      </span>
+    </div>
+
+    <div class="items-per-page">
+      <label class="items-label">Show:</label>
+      <select
+        [(ngModel)]="itemsPerPage"
+        (change)="onItemsPerPageChange()"
+        class="items-select">
+        <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+      <span class="items-label">entries</span>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <div class="pagination-wrapper">
+      <pagination-controls
+        (pageChange)="onPageChange($event)"
+        [autoHide]="false"
+        [maxSize]="maxSize"
+        previousLabel="‹ Previous"
+        nextLabel="Next ›"
+        class="custom-pagination">
+      </pagination-controls>
+    </div>
+  </div>
+
+</div>

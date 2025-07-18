@@ -1,0 +1,117 @@
+// ===========================
+// THEME MIXINS
+// ===========================
+
+@import './variables';
+
+// Light Theme Mixin
+@mixin light-theme {
+  $primary: map-get($light-palette, primary) !global;
+  $secondary: map-get($light-palette, secondary) !global;
+  $tertiary: map-get($light-palette, tertiary) !global;
+  $accent: map-get($light-palette, accent) !global;
+  $surface: map-get($light-palette, surface) !global;
+  $surface-hover: map-get($light-palette, surface-hover) !global;
+  $surface-active: map-get($light-palette, surface-active) !global;
+  $text-primary: map-get($light-palette, text-primary) !global;
+  $text-secondary: map-get($light-palette, text-secondary) !global;
+  $text-tertiary: map-get($light-palette, text-tertiary) !global;
+  $text-muted: map-get($light-palette, text-muted) !global;
+  $text-inverse: map-get($light-palette, text-inverse) !global;
+  $text-disabled: map-get($light-palette, text-disabled) !global;
+  $border: map-get($light-palette, border) !global;
+  $border-hover: map-get($light-palette, border-hover) !global;
+  $border-focus: map-get($light-palette, border-focus) !global;
+  $border-light: map-get($light-palette, border-light) !global;
+  $success: map-get($light-palette, success) !global;
+  $error: map-get($light-palette, error) !global;
+  $warning: map-get($light-palette, warning) !global;
+  $info: map-get($light-palette, info) !global;
+  $shadow-sm: map-get($light-palette, shadow-sm) !global;
+  $shadow: map-get($light-palette, shadow) !global;
+  $shadow-lg: map-get($light-palette, shadow-lg) !global;
+  $shadow-xl: map-get($light-palette, shadow-xl) !global;
+
+  // Set CSS custom properties for runtime switching
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --tertiary: #{$tertiary};
+  --accent: #{$accent};
+  --surface: #{$surface};
+  --surface-hover: #{$surface-hover};
+  --surface-active: #{$surface-active};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-tertiary: #{$text-tertiary};
+  --text-muted: #{$text-muted};
+  --text-inverse: #{$text-inverse};
+  --text-disabled: #{$text-disabled};
+  --border: #{$border};
+  --border-hover: #{$border-hover};
+  --border-focus: #{$border-focus};
+  --border-light: #{$border-light};
+  --success: #{$success};
+  --error: #{$error};
+  --warning: #{$warning};
+  --info: #{$info};
+  --shadow-sm: #{$shadow-sm};
+  --shadow: #{$shadow};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+}
+
+// Dark Theme Mixin
+@mixin dark-theme {
+  $primary: map-get($dark-palette, primary) !global;
+  $secondary: map-get($dark-palette, secondary) !global;
+  $tertiary: map-get($dark-palette, tertiary) !global;
+  $accent: map-get($dark-palette, accent) !global;
+  $surface: map-get($dark-palette, surface) !global;
+  $surface-hover: map-get($dark-palette, surface-hover) !global;
+  $surface-active: map-get($dark-palette, surface-active) !global;
+  $text-primary: map-get($dark-palette, text-primary) !global;
+  $text-secondary: map-get($dark-palette, text-secondary) !global;
+  $text-tertiary: map-get($dark-palette, text-tertiary) !global;
+  $text-muted: map-get($dark-palette, text-muted) !global;
+  $text-inverse: map-get($dark-palette, text-inverse) !global;
+  $text-disabled: map-get($dark-palette, text-disabled) !global;
+  $border: map-get($dark-palette, border) !global;
+  $border-hover: map-get($dark-palette, border-hover) !global;
+  $border-focus: map-get($dark-palette, border-focus) !global;
+  $border-light: map-get($dark-palette, border-light) !global;
+  $success: map-get($dark-palette, success) !global;
+  $error: map-get($dark-palette, error) !global;
+  $warning: map-get($dark-palette, warning) !global;
+  $info: map-get($dark-palette, info) !global;
+  $shadow-sm: map-get($dark-palette, shadow-sm) !global;
+  $shadow: map-get($dark-palette, shadow) !global;
+  $shadow-lg: map-get($dark-palette, shadow-lg) !global;
+  $shadow-xl: map-get($dark-palette, shadow-xl) !global;
+
+  // Set CSS custom properties for runtime switching
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --tertiary: #{$tertiary};
+  --accent: #{$accent};
+  --surface: #{$surface};
+  --surface-hover: #{$surface-hover};
+  --surface-active: #{$surface-active};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-tertiary: #{$text-tertiary};
+  --text-muted: #{$text-muted};
+  --text-inverse: #{$text-inverse};
+  --text-disabled: #{$text-disabled};
+  --border: #{$border};
+  --border-hover: #{$border-hover};
+  --border-focus: #{$border-focus};
+  --border-light: #{$border-light};
+  --success: #{$success};
+  --error: #{$error};
+  --warning: #{$warning};
+  --info: #{$info};
+  --shadow-sm: #{$shadow-sm};
+  --shadow: #{$shadow};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+}

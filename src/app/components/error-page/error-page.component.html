@@ -1,0 +1,22 @@
+<div class="notfound-container">
+  <div class="notfound-graphic">
+    <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="90" cy="90" r="90" fill="var(--theme-bg-secondary)"/>
+      <ellipse cx="90" cy="120" rx="50" ry="15" fill="var(--theme-bg-tertiary)"/>
+      <circle cx="65" cy="80" r="12" fill="var(--theme-bg-primary)" stroke="var(--theme-border-color)" stroke-width="3"/>
+      <circle cx="115" cy="80" r="12" fill="var(--theme-bg-primary)" stroke="var(--theme-border-color)" stroke-width="3"/>
+      <ellipse cx="65" cy="85" rx="3" ry="5" fill="var(--theme-text-secondary)"/>
+      <ellipse cx="115" cy="85" rx="3" ry="5" fill="var(--theme-text-secondary)"/>
+      <path d="M70 110 Q90 130 110 110" stroke="var(--theme-accent-primary)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="notfound-content">
+    <h1 class="notfound-title">404</h1>
+    <h2 class="notfound-subtitle">Page Not Found</h2>
+    <p class="notfound-message">
+      Sorry, the page you are looking for does not exist or has been moved.<br>
+      Please check the URL or return to the homepage.
+    </p>
+    <a routerLink="/home" class="notfound-btn" (click)=" goToHome()">Go Home</a>
+  </div>
+</div>

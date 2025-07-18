@@ -1,0 +1,99 @@
+<div class="register-container">
+  <div class="register-card">
+    <!-- Header -->
+    <div class="register-header">
+      <h1 class="register-title">Create New Account</h1>
+      <p class="register-subtitle">
+        Welcome! Create your account to get started
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="register-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label"> Email Address * </label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('email')"
+            formControlName="email"
+            placeholder="example@domain.com"
+          />
+        </div>
+
+        <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+          <span *ngIf="!isFieldValid('email')"
+            >Please enter a valid email.
+          </span>
+          <span *ngIf="loginForm.get('email')?.hasError('required')">
+            Email is required.
+          </span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="fas fa-lock icon-label"></i>
+          Password *
+        </label>
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('password')"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback" *ngIf="isFieldInvalid('password')"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn-register"
+        [disabled]="_authFacadService.loginLoading | async"
+      >
+        Login
+        <i
+          class="fa-solid fa-spinner fa-spin"
+          *ngIf="_authFacadService.loginLoading | async"
+        ></i>
+      </button>
+
+      <!-- Login Link -->
+      <div class="login-link">
+        <div>
+          <span>Don't have an account?</span>
+          <a type="button" class="login-link-text" (click)="goToRegister()">
+            <i class="fas fa-sign-in-alt"></i>
+            Register
+          </a>
+        </div>
+        <div>
+          <span>Are you Forgot your Password?</span>
+          <a
+            type="button"
+            class="login-link-text"
+            (click)="goToForgetPassword()"
+          >
+            <i class="fas fa-sign-in-alt"></i>
+            Forget Password
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

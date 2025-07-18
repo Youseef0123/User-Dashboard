@@ -1,0 +1,90 @@
+<nav class="navbar">
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+  <div class="navbar-container w-100">
+    <!-- Logo Section - Left -->
+    <div class="navbar-brand">
+      <a routerLink="/" class="brand-link">
+        <span routerLink="/home"  class="brand-text">Intcore</span>
+      </a>
+    </div>
+
+    <!-- Navigation Links - Center -->
+    <div class="navbar-nav" [class.active]="isMobileMenuOpen">
+      <ul class="nav-list" *ngIf="LoggedIn">
+        <li class="nav-item">
+          <a routerLink="/home" routerLinkActive="active" class="nav-link" (click)="closeMobileMenu()">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/about" routerLinkActive="active" class="nav-link" (click)="closeMobileMenu()">
+            About
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/services" routerLinkActive="active" class="nav-link" (click)="closeMobileMenu()">
+            Services
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/contact" routerLinkActive="active" class="nav-link" (click)="closeMobileMenu()">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile Actions -->
+      <div class="mobile-actions">
+        <button *ngIf="!LoggedIn" class="btn-signup mobile" routerLink="/register" (click)="closeMobileMenu()">
+          Sign Up
+        </button>
+
+        <button *ngIf="!LoggedIn" class="btn-login mobile" routerLink="/login" (click)="closeMobileMenu()">
+          Login
+        </button>
+
+         <button *ngIf="LoggedIn" class="btn-login" [disabled]="isLogoutLoading" (click)="logout()">
+         <span *ngIf="isLogoutLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+         <span *ngIf="!isLogoutLoading">Logout</span>
+         <span *ngIf="isLogoutLoading">Logging out...</span>
+        </button>
+
+
+        <button class="theme-toggle mobile" (click)="toggleTheme()">
+          <i class="fas" [class.fa-moon]="!isDarkMode" [class.fa-sun]="isDarkMode"></i>
+          <span>{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Action Buttons & Theme Toggle - Right -->
+    <div class="navbar-actions" [class.active]="isMobileMenuOpen">
+      <button *ngIf="!LoggedIn" class="btn-signup" routerLink="/register" (click)="closeMobileMenu()">
+        Sign Up
+      </button>
+
+      <button *ngIf="!LoggedIn" class="btn-login" routerLink="/login" (click)="closeMobileMenu()">
+        Login
+      </button>
+
+      <button *ngIf="LoggedIn" class="btn-login" [disabled]="isLogoutLoading" (click)="logout()">
+        <span *ngIf="isLogoutLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        <span *ngIf="!isLogoutLoading">Logout</span>
+        <span *ngIf="isLogoutLoading">Logging out...</span>
+      </button>
+
+      <button class="theme-toggle" (click)="toggleTheme()" [title]="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        <i class="fas" [class.fa-moon]="!isDarkMode" [class.fa-sun]="isDarkMode"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>

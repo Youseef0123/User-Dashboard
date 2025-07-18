@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+
+/* Import Theme System */
+@import "./app/shared/styles/index";
+
+/* Global Theme Application */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+body {
+  // Default light theme
+  @include light-theme;
+
+  // Dark theme when data-theme="dark"
+  &[data-theme="dark"] {
+    @include dark-theme;
+  }
+
+  // Smooth transition between themes
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+:root {
+  @include light-theme;
+}
+
+.Dark {
+  @include dark-theme;
+}
+
+/* Scrollbar Theming */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-border-hover);
+}
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

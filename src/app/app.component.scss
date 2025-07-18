@@ -1,0 +1,23 @@
+
+
+@import "../app/shared/styles/index.scss";
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 60px;
+}
+
+
+
+
+body{
+  &[theme='dark']{
+    @include dark-theme();
+  }
+  &[theme='light']{
+    @include light-theme();
+  }
+
+}

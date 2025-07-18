@@ -1,0 +1,412 @@
+
+
+
+<div class="users-container" >
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="custom-loading-overlay">
+    <div class="custom-loading-content">
+      <i class="fa-solid fa-circle-notch fa-spin fa-3x" style="color: #fff;"></i>
+      <div class="custom-loading-text">Loading users...</div>
+    </div>
+  </div>
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header-info">
+      <h1 class="page-title">All Users</h1>
+      <p class="page-description">
+        View, edit, and manage user details and permissions effortlessly. Quickly search, filter, and
+        perform bulk actions to maintain full control over user accounts.
+      </p>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-section">
+    <!-- Search -->
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search..."
+          [formControl]="searchTerm">
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+
+      <!-- Filters -->
+<div class="filters-container d-flex gap-3 flex-wrap">
+  <!-- Filter by Role -->
+  <div class="custom-select-wrapper">
+    <select class="custom-select" [(ngModel)]="selectedRole" (change)="filterByRoleAndStatus()">
+      <option value="">All Roles</option>
+      <option value="Admin">Admin</option>
+      <option value="User">User</option>
+    </select>
+  </div>
+
+  <!-- Filter by Status -->
+  <div class="custom-select-wrapper">
+    <select class="custom-select" [(ngModel)]="selectedStatues" (change)="filterByRoleAndStatus()">
+      <option value="">All Status</option>
+      <option value="Active">Active</option>
+      <option value="Suspended">Suspended</option>
+    </select>
+  </div>
+</div>
+
+
+
+      <button (click)="openCreateModal()" class="btn btn-add-user">
+        <i class="fa-solid fa-user-plus"></i>
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+
+
+  <div class="table-container w-100 m-auto ">
+    <table class="users-table">
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th class="checkbox-column">
+            ID
+          </th>
+          <th class="name-column  d-flex justify-content-center " (click)="sortUser('name')" style="cursor:pointer">
+            Name
+              <svg *ngIf="sortColumn === 'name' && sortDirection === 'asc'"
+                     class="sort-icon d-flex justify-content-center" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 15l4-4 4 4"></path>
+                </svg>
+
+
+                <svg *ngIf="sortColumn === 'name' && sortDirection === 'desc'"
+                     class="sort-icon d-flex justify-content-center mt-2" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 9l-4 4-4-4"></path>
+                </svg>
+             </th>
+
+
+          <th class="role-column">
+            <span class="header-icon-label">
+              Role
+              <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+            </span>
+          </th>
+
+
+          <th class="date-column" (click)="sortUser('Date')" style="cursor:pointer">
+            <span class="header-icon-label">
+              Add Date
+              <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </span>
+            <svg *ngIf="sortColumn === 'Date' && sortDirection === 'asc'"
+                 class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 15l4-4 4 4"></path>
+            </svg>
+            <svg *ngIf="sortColumn === 'Date' && sortDirection === 'desc'"
+                 class="sort-icon  mt-2" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 9l-4 4-4-4"></path>
+            </svg>
+          </th>
+
+
+          <th class="status-column">
+            <span class="header-icon-label">
+              Status
+              <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </span>
+          </th>
+
+
+          <th class="groups-column">
+            <span class="header-icon-label">
+              Groups
+              <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </span>
+          </th>
+
+
+          <th class="license-column">
+            <span class="header-icon-label">
+              License Name
+              <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </span>
+          </th>
+          <th class="actions-column d-flex justify-content-center align-content-center">Actions</th>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <tr *ngFor="let user of filteredUsers | paginate:{itemsPerPage: itemsPerPage, currentPage: currentPage}" class="table-row">
+        <td>
+          <span class="user-id">{{ (+user.id) - 13 }}</span>
+        </td>
+          <td class="name-cell">
+            <div class="user-info">
+              <img src="../../../assets/hacker avatar1 2.svg" [alt]="user.name" class="user-avatar" onerror="this.src='assets/images/default-avatar.svg'">
+              <div class="user-details">
+                <div class="user-name">{{ user.name }}</div>
+                <div class="user-email">{{ user.email }}</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="role-cell">
+            <span class="role-badge">{{ user.role }}</span>
+          </td>
+
+          <td class="date-cell">
+            <span class="date-text">{{ user.Date }}</span>
+          </td>
+
+
+          <td class="status-cell">
+
+
+
+
+            <span *ngIf="user.status === 'Active'" class="status-badge status-active">
+             Active
+            </span>
+            <span *ngIf="user.status == 'Suspended'" class="status-badge status-suspended">
+              Suspended
+            </span>
+
+
+          </td>
+
+
+          <td class="groups-cell">
+            <span class="groups-text" [ngClass]="{'no-group': user.Groups === 'No Group'}">
+              {{ user.Groups }}
+            </span>
+          </td>
+
+
+          <td class="license-cell">
+            <span class="license-text">{{ user['License Name'] }}</span>
+          </td>
+
+
+          <td class="actions-cell">
+
+            <div class="action-buttons-container">
+              <button class="btn btn-edit" (click)="openEditModal(user)" title="Edit User">
+                <i class="fa-solid fa-pen" style="color: #086148;"></i>
+              </button>
+              <button class="btn btn-delete" (click)="openDeleteModal(user)" title="Delete User">
+                <i class="fa-solid fa-trash" style="color: #d73333;"></i>
+              </button>
+
+
+              <div>
+               <label class="custom-checkbox-icon">
+                    <input
+                      type="checkbox"
+                      class="visually-hidden"
+                      [checked]="user.selected"
+                      (change)="onCheckboxChange(user, $event)" />
+
+                    <i *ngIf="user.status=== 'Active' " class="fa-solid fa-triangle-exclamation" title="Alert" style="color: #eec144;"></i>
+                    <i *ngIf="user.status=== 'Suspended' " class="fa-solid fa-check" style="color: #118d20;"></i>
+                  </label>
+              </div>
+
+
+            </div>
+
+
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Component -->
+    <app-pagination
+      *ngIf="filteredUsers.length > 0"
+      [currentPage]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="filteredUsers.length"
+      [maxSize]="5"
+      (pageChanged)="onPageChanged($event)"
+      (itemsPerPageChanged)="onItemsPerPageChanged($event)">
+    </app-pagination>
+
+
+    <!-- Empty State -->
+    <div *ngIf="filteredUsers.length === 0" class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <h3>No users found</h3>
+      <p>Try adjusting your search or filter criteria</p>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+
+
+<!-- Remove User Modal -->
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete Confirmation </h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are You Sure Delete The User <strong>{{userToDelete?.name}}</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="ConfirmDelete() ">Delete</button>
+  </div>
+</ng-template>
+
+
+<!-- Create/Update User Modal -->
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ isEditMode ? 'Edit User Information' : 'Create New User' }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+
+      <div class="mb-3">
+        <label class="form-label">Name </label>
+                <input type="text" class="form-control"
+                   formControlName="name"
+                   name="name">
+            <div *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)" class="text-danger mt-1">
+              <small *ngIf="form.get('name')?.errors?.['required']">Name is required</small>
+              <small *ngIf="form.get('name')?.errors?.['minlength']">Minimum 3 characters</small>
+              <small *ngIf="form.get('name')?.errors?.['maxlength']">Maximum 20 characters</small>
+            </div>
+
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">Email </label>
+             <input type="email" class="form-control"
+                    formControlName="email"
+                    name="email">
+             <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)" class="text-danger mt-1">
+               <small *ngIf="form.get('email')?.errors?.['required']">Email is required</small>
+               <small *ngIf="form.get('email')?.errors?.['email']">Invalid email format</small>
+               <small *ngIf="form.get('email')?.errors?.['emailExists']">This email is already registered</small>
+              </div>
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">Role </label>
+
+        <select class="form-control"
+        formControlName="role"
+        name="role">
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="User">User</option>
+        </select>
+        <div *ngIf="form.get('role')?.invalid && (form.get('role')?.dirty || form.get('role')?.touched)" class="text-danger mt-1">
+          <small *ngIf="form.get('role')?.errors?.['required']">Role is required</small>
+        </div>
+      </div>
+
+
+
+
+      <div class="mb-3">
+          <label class="form-label">Status </label>
+          <select class="form-control"
+                  formControlName="status"
+                  name="status">
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+
+          <!-- Real-time error message -->
+          <div *ngIf="form.get('status')?.invalid && (form.get('status')?.dirty || form.get('status')?.touched)" class="text-danger mt-1">
+            <small *ngIf="form.get('status')?.errors?.['required']">Status is required</small>
+          </div>
+      </div>
+
+
+
+      <div class="mb-3">
+        <label class="form-label">Groups</label>
+        <select class="form-control" formControlName="Groups" name="groups">
+          <option *ngFor="let group of groupOptions" [value]="group">{{ group }}</option>
+        </select>
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">License Name</label>
+        <select class="form-control"
+        formControlName="licenseName"
+        name="license">
+          <option *ngFor="let license of licenseOptions" [value]="license">{{ license }}</option>
+        </select>
+
+        <!-- Real-time error -->
+        <div *ngIf="form.get('licenseName')?.invalid && (form.get('licenseName')?.dirty || form.get('licenseName')?.touched)" class="text-danger mt-1">
+          <small *ngIf="form.get('licenseName')?.errors?.['required']">License name is required</small>
+   </div>
+
+      </div>
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    <button class="btn btn-success" (click)="saveEdit(modal) " [disabled]="form.invalid">
+      {{ isEditMode ? 'Save Changes' : 'Create User' }}
+    </button>
+  </div>
+</ng-template>
+
+
+
+

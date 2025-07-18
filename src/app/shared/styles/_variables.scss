@@ -1,0 +1,473 @@
+$Main_Color_White:#faf7fa;
+$Secound_Color_Red:#EB737A;
+$Secound_Red:#F2E8E8;
+$Text_Color:#944F54;
+$Black_Color:#1C0D0F;
+
+// ===========================
+// THEME PALETTES
+// ===========================
+
+// Light Theme Palette
+$light-palette: (
+  primary: $Main_Color_White,
+  secondary: #ffffff,
+  tertiary: #f8f9fa,
+  accent: $Secound_Color_Red,
+  surface: #ffffff,
+  surface-hover: #f9fafb,
+  surface-active: #f3f4f6,
+  text-primary: $Black_Color,
+  text-secondary: $Text_Color,
+  text-tertiary: #6b7280,
+  text-muted: rgba(148, 79, 84, 0.7),
+  text-inverse: #ffffff,
+  text-disabled: #9ca3af,
+  border: #e5e7eb,
+  border-hover: #d1d5db,
+  border-focus: $Secound_Color_Red,
+  border-light: #f3f4f6,
+  success: #10b981,
+  error: #ef4444,
+  warning: #f59e0b,
+  info: #3b82f6,
+  shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+);
+
+// Dark Theme Palette
+$dark-palette: (
+  primary: $Black_Color,
+  secondary: #1a1a1a,
+  tertiary: #2d2d2d,
+  accent: $Secound_Color_Red,
+  surface: #1f1f1f,
+  surface-hover: #2a2a2a,
+  surface-active: #333333,
+  text-primary: #ffffff,
+  text-secondary: #e2e8f0,
+  text-tertiary: #a0a0a0,
+  text-muted: rgba(255, 255, 255, 0.7),
+  text-inverse: $Black_Color,
+  text-disabled: #666666,
+  border: #404040,
+  border-hover: #555555,
+  border-focus: $Secound_Color_Red,
+  border-light: #333333,
+  success: #10b981,
+  error: #ef4444,
+  warning: #f59e0b,
+  info: #3b82f6,
+  shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+  shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4),
+  shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+  shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4)
+);
+
+// ===========================
+// CURRENT THEME VARIABLES (set by mixins)
+// ===========================
+$primary: null !default;
+$secondary: null !default;
+$tertiary: null !default;
+$accent: null !default;
+$surface: null !default;
+$surface-hover: null !default;
+$surface-active: null !default;
+$text-primary: null !default;
+$text-secondary: null !default;
+$text-tertiary: null !default;
+$text-muted: null !default;
+$text-inverse: null !default;
+$text-disabled: null !default;
+$border: null !default;
+$border-hover: null !default;
+$border-focus: null !default;
+$border-light: null !default;
+$success: null !default;
+$error: null !default;
+$warning: null !default;
+$info: null !default;
+$shadow-sm: null !default;
+$shadow: null !default;
+$shadow-lg: null !default;
+$shadow-xl: null !default;
+
+// ===========================
+// ADDITIONAL VARIABLES
+// ===========================
+
+// Typography
+$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-size-base: 16px;
+$font-size-sm: 14px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$line-height-base: 1.5;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3
+);
+
+// Breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// Borders & Radius
+$border-width: 1px;
+$border-radius: 0.375rem;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 1.5rem;
+
+// Shadows
+$box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+$box-shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-base: all 0.2s ease-in-out;
+$transition-fade: opacity 0.15s linear;
+$transition-transform: transform 0.2s ease-in-out;
+
+// ===========================
+// ORIGINAL COLORS
+// ===========================
+$Main_Color_White:#faf7fa;
+$Secound_Color_Red:#EB737A;
+$Secound_Red:#F2E8E8;
+$Text_Color:#944F54;
+$Black_Color:#1C0D0F;
+
+// ===========================
+// ENHANCED THEME VARIABLES
+// ===========================
+
+// Light Theme Colors
+$light-bg-primary: $Main_Color_White;
+$light-bg-secondary: #ffffff;
+$light-bg-tertiary: #f8f9fa;
+$light-bg-accent: lighten($Secound_Red, 5%);
+$light-surface: #ffffff;
+$light-surface-hover: #f9fafb;
+$light-surface-active: #f3f4f6;
+
+$light-text-primary: $Black_Color;
+$light-text-secondary: $Text_Color;
+$light-text-tertiary: #6b7280;
+$light-text-muted: rgba(red($Text_Color), green($Text_Color), blue($Text_Color), 0.7);
+$light-text-inverse: #ffffff;
+$light-text-disabled: #9ca3af;
+
+$light-border-color: #e5e7eb;
+$light-border-hover: #d1d5db;
+$light-border-focus: $Secound_Color_Red;
+$light-border-light: #f3f4f6;
+
+// Dark Theme Colors
+$dark-bg-primary: $Black_Color;
+$dark-bg-secondary: #1a1a1a;
+$dark-bg-tertiary: #2d2d2d;
+$dark-bg-accent: rgba($Secound_Color_Red, 0.1);
+$dark-surface: #1f1f1f;
+$dark-surface-hover: #2a2a2a;
+$dark-surface-active: #333333;
+
+$dark-text-primary: #ffffff;
+$dark-text-secondary: #e2e8f0;
+$dark-text-tertiary: #a0a0a0;
+$dark-text-muted: rgba(255, 255, 255, 0.7);
+$dark-text-inverse: $Black_Color;
+$dark-text-disabled: #666666;
+
+$dark-border-color: #404040;
+$dark-border-hover: #555555;
+$dark-border-focus: $Secound_Color_Red;
+$dark-border-light: #333333;
+
+// Accent Colors
+$accent-primary: $Secound_Color_Red;
+$accent-secondary: $Secound_Red;
+$accent-hover: darken($Secound_Color_Red, 10%);
+$accent-light: lighten($Secound_Color_Red, 20%);
+$accent-dark: darken($Secound_Color_Red, 15%);
+
+// Status Colors
+$success-color: #10b981;
+$success-bg-light: #d1fae5;
+$success-bg-dark: rgba(16, 185, 129, 0.15);
+$success-border-light: #a7f3d0;
+$success-border-dark: rgba(16, 185, 129, 0.3);
+
+$error-color: #ef4444;
+$error-bg-light: #fee2e2;
+$error-bg-dark: rgba(239, 68, 68, 0.15);
+$error-border-light: #fecaca;
+$error-border-dark: rgba(239, 68, 68, 0.3);
+$error-hover: darken(#ef4444, 10%);
+
+$warning-color: #f59e0b;
+$warning-bg-light: #fef3c7;
+$warning-bg-dark: rgba(245, 158, 11, 0.15);
+$warning-border-light: #fde68a;
+$warning-border-dark: rgba(245, 158, 11, 0.3);
+
+$info-color: #3b82f6;
+$info-bg-light: #dbeafe;
+$info-bg-dark: rgba(59, 130, 246, 0.15);
+$info-border-light: #bfdbfe;
+$info-border-dark: rgba(59, 130, 246, 0.3);
+
+// Interactive States
+$hover-opacity-light: 0.8;
+$hover-opacity-dark: 0.9;
+$active-opacity-light: 0.9;
+$active-opacity-dark: 0.8;
+$disabled-opacity-light: 0.6;
+$disabled-opacity-dark: 0.5;
+
+// Enhanced Shadows
+$shadow-sm-light: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-lg-light: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl-light: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$shadow-inner-light: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+$shadow-sm-dark: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$shadow-dark: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$shadow-lg-dark: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+$shadow-xl-dark: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+$shadow-inner-dark: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+
+// Z-Index Scale
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// ===========================
+// UTILITY FUNCTIONS
+// ===========================
+
+// Function to get theme color based on current theme
+@function get-theme-color($color-name, $theme: 'light') {
+  @if $theme == 'light' {
+    @if $color-name == 'bg-primary' { @return $light-bg-primary; }
+    @if $color-name == 'bg-secondary' { @return $light-bg-secondary; }
+    @if $color-name == 'bg-tertiary' { @return $light-bg-tertiary; }
+    @if $color-name == 'surface' { @return $light-surface; }
+    @if $color-name == 'text-primary' { @return $light-text-primary; }
+    @if $color-name == 'text-secondary' { @return $light-text-secondary; }
+    @if $color-name == 'border' { @return $light-border-color; }
+  } @else if $theme == 'dark' {
+    @if $color-name == 'bg-primary' { @return $dark-bg-primary; }
+    @if $color-name == 'bg-secondary' { @return $dark-bg-secondary; }
+    @if $color-name == 'bg-tertiary' { @return $dark-bg-tertiary; }
+    @if $color-name == 'surface' { @return $dark-surface; }
+    @if $color-name == 'text-primary' { @return $dark-text-primary; }
+    @if $color-name == 'text-secondary' { @return $dark-text-secondary; }
+    @if $color-name == 'border' { @return $dark-border-color; }
+  }
+  @return null;
+}
+
+// Function to get status color
+@function get-status-color($status, $variant: 'color') {
+  @if $status == 'success' {
+    @if $variant == 'color' { @return $success-color; }
+    @if $variant == 'bg-light' { @return $success-bg-light; }
+    @if $variant == 'bg-dark' { @return $success-bg-dark; }
+    @if $variant == 'border-light' { @return $success-border-light; }
+    @if $variant == 'border-dark' { @return $success-border-dark; }
+  } @else if $status == 'error' {
+    @if $variant == 'color' { @return $error-color; }
+    @if $variant == 'bg-light' { @return $error-bg-light; }
+    @if $variant == 'bg-dark' { @return $error-bg-dark; }
+    @if $variant == 'border-light' { @return $error-border-light; }
+    @if $variant == 'border-dark' { @return $error-border-dark; }
+  } @else if $status == 'warning' {
+    @if $variant == 'color' { @return $warning-color; }
+    @if $variant == 'bg-light' { @return $warning-bg-light; }
+    @if $variant == 'bg-dark' { @return $warning-bg-dark; }
+    @if $variant == 'border-light' { @return $warning-border-light; }
+    @if $variant == 'border-dark' { @return $warning-border-dark; }
+  } @else if $status == 'info' {
+    @if $variant == 'color' { @return $info-color; }
+    @if $variant == 'bg-light' { @return $info-bg-light; }
+    @if $variant == 'bg-dark' { @return $info-bg-dark; }
+    @if $variant == 'border-light' { @return $info-border-light; }
+    @if $variant == 'border-dark' { @return $info-border-dark; }
+  }
+  @return null;
+}
+
+// Function to get shadow based on theme
+@function get-shadow($size: 'default', $theme: 'light') {
+  @if $theme == 'light' {
+    @if $size == 'sm' { @return $shadow-sm-light; }
+    @if $size == 'default' { @return $shadow-light; }
+    @if $size == 'lg' { @return $shadow-lg-light; }
+    @if $size == 'xl' { @return $shadow-xl-light; }
+    @if $size == 'inner' { @return $shadow-inner-light; }
+  } @else if $theme == 'dark' {
+    @if $size == 'sm' { @return $shadow-sm-dark; }
+    @if $size == 'default' { @return $shadow-dark; }
+    @if $size == 'lg' { @return $shadow-lg-dark; }
+    @if $size == 'xl' { @return $shadow-xl-dark; }
+    @if $size == 'inner' { @return $shadow-inner-dark; }
+  }
+  @return null;
+}
+
+// ===========================
+// HELPER MIXINS
+// ===========================
+
+// Mixin for component base styles
+@mixin component-base {
+  transition: $transition-base;
+  box-sizing: border-box;
+}
+
+// Mixin for flex center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Mixin for absolute center
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Mixin for truncate text
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Mixin for multi-line text truncate
+@mixin text-truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Mixin for visually hidden content
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Mixin for focus outline
+@mixin focus-outline {
+  outline: 2px solid $accent-primary;
+  outline-offset: 2px;
+}
+
+// Mixin for reset button styles
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+// Mixin for container max-width
+@mixin container($max-width: 1200px) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0 0.5rem;
+  }
+}
+
+// ===========================
+// COMPONENT SPECIFIC VARIABLES
+// ===========================
+
+// Form Components
+$form-input-height: 2.5rem;
+$form-input-padding: 0.75rem 1rem;
+$form-label-margin: 0.5rem 0;
+$form-group-margin: 1.5rem 0;
+
+// Button Components
+$button-padding-sm: 0.5rem 1rem;
+$button-padding-md: 0.75rem 1.5rem;
+$button-padding-lg: 1rem 2rem;
+$button-height-sm: 2rem;
+$button-height-md: 2.5rem;
+$button-height-lg: 3rem;
+
+// Card Components
+$card-padding: 1.5rem;
+$card-padding-sm: 1rem;
+$card-padding-lg: 2rem;
+$card-border-radius: $border-radius-lg;
+
+// Navigation Components
+$nav-height: 4rem;
+$nav-padding: 1rem;
+$nav-link-padding: 0.5rem 1rem;
+
+// Modal Components
+$modal-backdrop-opacity: 0.5;
+$modal-max-width: 500px;
+$modal-padding: 2rem;
+$modal-border-radius: $border-radius-xl;
+
+// Animation Durations
+$animation-duration-fast: 0.15s;
+$animation-duration-normal: 0.3s;
+$animation-duration-slow: 0.5s;
+
+// Animation Easings
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+// ===========================
+// EXISTING VARIABLES (Keep as is)
+

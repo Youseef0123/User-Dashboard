@@ -1,0 +1,85 @@
+<div class="otp-container" >
+  <div class="otp-card">
+    <!-- Header -->
+    <div class="otp-header">
+      <h1 class="otp-title">OTP Verification</h1>
+      <p class="otp-subtitle">Please enter the OTP sent to your email address</p>
+    </div>
+
+    <!-- OTP Input -->
+    <div class="otp-form">
+      <div class="otp-inputs">
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp0
+          [(ngModel)]="otpDigits[0]"
+          (input)="onOtpChange($event, 0)"
+          (keydown)="onKeyDown($event, 0)"
+          (paste)="onPaste($event)" />
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp1
+          [(ngModel)]="otpDigits[1]"
+          (input)="onOtpChange($event, 1)"
+          (keydown)="onKeyDown($event, 1)" />
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp2
+          [(ngModel)]="otpDigits[2]"
+          (input)="onOtpChange($event, 2)"
+          (keydown)="onKeyDown($event, 2)" />
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp3
+          [(ngModel)]="otpDigits[3]"
+          (input)="onOtpChange($event, 3)"
+          (keydown)="onKeyDown($event, 3)" />
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp4
+          [(ngModel)]="otpDigits[4]"
+          (input)="onOtpChange($event, 4)"
+          (keydown)="onKeyDown($event, 4)" />
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          #otp5
+          [(ngModel)]="otpDigits[5]"
+          (input)="onOtpChange($event, 5)"
+          (keydown)="onKeyDown($event, 5)" />
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="otp-actions">
+      <button
+        type="button"
+        class="btn-verify"
+        [disabled]="!isOtpComplete() || isLoading"
+        [class.disabled]="!isOtpComplete() || isLoading"
+        [class.loading]="isLoading"
+        (click)="verifyOtp()"
+        >
+        <span *ngIf="!isLoading">
+          <i class="fas fa-check"></i>
+          VERIFY
+        </span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i>
+          VERIFYING...
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

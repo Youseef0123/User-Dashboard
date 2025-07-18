@@ -1,0 +1,227 @@
+// ===========================
+// MIXINS
+// ===========================
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Additional flex mixins
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+// ===========================
+// RESPONSIVE MIXINS
+// ===========================
+
+// Responsive breakpoints helper
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'mobile' {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == 'tablet' {
+    @media (max-width: 1023px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == 'desktop' {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+// ===========================
+// ADDITIONAL UTILITY MIXINS
+// ===========================
+
+// Component base styles
+@mixin component-base {
+  transition: $transition-base;
+  box-sizing: border-box;
+}
+
+// Responsive Mixins
+@mixin media-up($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+@mixin media-down($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($grid-breakpoints, $breakpoint);
+    @media (max-width: #{$breakpoint-value - 1px}) {
+      @content;
+    }
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  @if map-has-key($grid-breakpoints, $lower) and map-has-key($grid-breakpoints, $upper) {
+    $lower-value: map-get($grid-breakpoints, $lower);
+    $upper-value: map-get($grid-breakpoints, $upper);
+    @media (min-width: #{$lower-value}) and (max-width: #{$upper-value - 1px}) {
+      @content;
+    }
+  }
+}
+
+// Button Mixins
+@mixin button-variant($background, $border, $color: #fff) {
+  background-color: $background;
+  border-color: $border;
+  color: $color;
+
+  &:hover {
+    background-color: darken($background, 7.5%);
+    border-color: darken($border, 10%);
+    color: $color;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($background, 0.5);
+  }
+
+  &:active {
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12.5%);
+  }
+}
+
+// Card Mixins
+@mixin card-style($padding: $spacer, $border-radius: $border-radius, $shadow: $box-shadow-sm) {
+  background-color: $bg-primary;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  padding: $padding;
+}
+
+// Text Mixins
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-gradient($gradient) {
+  background: $gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Position Mixins
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Animation Mixins
+@mixin fade-in($duration: 0.3s) {
+  opacity: 0;
+  animation: fadeIn $duration ease-in-out forwards;
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin slide-up($duration: 0.3s, $distance: 20px) {
+  transform: translateY($distance);
+  opacity: 0;
+  animation: slideUp $duration ease-out forwards;
+
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+// Form Mixins
+@mixin input-style {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-primary;
+  background-color: $bg-primary;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  transition: $transition-base;
+
+  &:focus {
+    outline: 0;
+    border-color: rgba($primary-color, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+}
+
+// Utility Mixins
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
